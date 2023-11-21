@@ -1,0 +1,223 @@
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <label for="firstName">First Name: </label>
+  <input
+    type="text"
+    formControlName="firstName"
+    placeholder="First Name"
+    class="form-control"
+    id="firstName"
+    required
+  />
+  <div
+    *ngIf="registrationForm.get('firstName')?.touched &&  registrationForm.get('firstName')?.hasError('required')"
+  >
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('firstName')?.hasError('required')"
+    >
+      This Field is required
+    </small>
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('firstName')?.hasError('untouched')"
+      >This Field must be filled</small
+
+    >
+  </div>
+
+  <label for="LastName"> Last Name: </label>
+  <input
+    type="text"
+    formControlName="lastName"
+    placeholder="Last Name"
+    class="form-control"
+    id="lastName"
+    required
+
+  />
+
+  <div
+    *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.hasError('required')"
+  >
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('lastName')?.hasError('required')"
+    >
+      This Field is required
+    </small>
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('lastName')?.hasError('untouched')"
+      >This Field must be filled</small
+    >
+  </div>
+  <br>
+  
+  <label>Gender</label>
+  <label for="Male"
+    >Male &nbsp;<input
+      type="radio"
+      formControlName="gender"
+      id="Male"
+      value="Male"
+    />
+  </label>
+  <label for="Female"
+    >Female &nbsp;
+    <input type="radio" formControlName="gender" value="Female" id="Female" />
+  </label>
+
+  <label for="Prefer not to say"
+    >pnts &nbsp;
+
+    <input type="radio" formControlName="gender" id="pnts" value="Prefer not to say" />
+  </label>
+  <div
+    *ngIf="registrationForm.get('gender')?.touched && registrationForm.get('gender')?.hasError('required')"
+  >
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('gender')?.hasError('required')"
+    >
+      needs to be chosen
+    </small>
+  </div>
+
+  <div class="form-group" formGroupName="address" ngDefaultControl>
+    <label>City</label>
+    <input
+      type="text"
+      name="city"
+      formControlName="city"
+      class="form-control"
+      placeholder="City"
+      required
+    />
+    <div
+      *ngIf="registrationForm.get('address.city')?.touched && registrationForm.get('address.city')?.hasError('required')"
+    >
+      <small
+        class="text-error"
+        *ngIf="registrationForm.get('address.city')?.hasError('required')"
+      >
+        This Field is required
+      </small>
+    </div>
+
+    <label>region</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="region"
+      placeholder="Region"
+      required
+    />
+    <div
+      *ngIf="registrationForm.get('address.region')?.touched &&  registrationForm.get('address.region')?.hasError('required')"
+    >
+      <small
+        class="text-error"
+        *ngIf="registrationForm.get('address.region')?.hasError('required')"
+      >
+        This Field is required
+      </small>
+    </div>
+
+    <label>Postal Code</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="postalCode"
+      placeholder="----"
+      required
+    />
+    <div
+      *ngIf="registrationForm.get('address.postalCode')?.touched && registrationForm.get('address.postalCode')?.hasError('required')"
+    >
+      <small
+        class="text-error"
+        *ngIf="registrationForm.get('address.postalCode')?.hasError('required')"
+      >
+        This Field is required
+      </small>
+    </div>
+  </div>
+
+  
+  <label for="phoneNumber">Phone Number: </label>
+  <input
+    type="tel"
+    id="phoneNumber"
+    class="form-control"
+    formControlName="phoneNumber"
+    required
+  />
+  <div
+    *ngIf="registrationForm.get('phoneNumber')?.touched && registrationForm.get('phoneNumber')?.hasError('required')"
+  >
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('phoneNumber')?.hasError('required')"
+    >
+      This Field is required
+    </small>
+  </div>
+
+  <label for="dob"> Date Of Birth: </label>
+  <input
+    type="date"
+    formControlName="dateOfBirth"
+    id="dob"
+    class="form-control"
+    required
+  />
+
+  <label for="position">Positions: </label>
+  <select
+    required
+    id="position"
+    formControlName="position"
+    class="form-control"
+  >
+    <option value="JR .NET Developer">JR .NET Developer</option>
+    <option value="Middle .NET developer">Middle .NET developer</option>
+    <option value="JR. Angular Developer">JR. Angular Developer</option>
+    <option value="Team lead of Angular">Team lead of Angular</option>
+    <option value="Team lead of .NET">Team lead of .NET</option>
+  </select>
+
+
+  <div
+    *ngIf="registrationForm.get('position')?.touched &&  registrationForm.get('position')?.hasError('required')"
+  >
+    <small
+      class="text-error"
+      *ngIf="registrationForm.get('position')?.hasError('required')"
+    >
+      Must Choose.
+    </small>
+  </div>
+
+
+  <label>Subscribe to newsletters:</label>
+  <input
+    type="checkbox"
+    formControlName="subscribeToNewsLetter"
+    (change)="showEmailInput = !showEmailInput"
+  />
+  <div *ngIf="showEmailInput">
+    <div *ngFor="let emailInput of emailInputs; let i = index">
+      <label>Email {{ i + 1 }}:</label>
+      <input type="text" [formControl]="emailInput" />
+    </div>
+    <button type="button" (click)="addEmail()">Add Email</button>
+  </div>
+  <br>
+
+  <button type="submit">
+    Apply
+  </button>
+
+  
+</form>
